@@ -1,0 +1,53 @@
+.calendar-popover {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 98%, transparent), var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-border) 82%, transparent);
+  color: var(--color-text);
+}
+
+.calendar-nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background-color: var(--color-surface-muted);
+  color: var(--color-primary);
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.calendar-nav-button:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+.calendar-day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  border-radius: 0.75rem;
+  color: var(--color-text);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.calendar-day-muted {
+  color: color-mix(in srgb, var(--color-text-muted) 55%, transparent);
+}
+
+.calendar-day-today {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  box-shadow: 0 12px 30px -18px var(--color-primary);
+}
+html.dark .calendar-popover {
+  background:
+    linear-gradient(180deg, rgba(19, 34, 27, 0.99), rgba(15, 28, 22, 0.98));
+  border-color: var(--color-border);
+}

@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiAgro", "ApiAgro\ApiAgro.csproj", "{2DE3C9C4-63C2-CA19-335F-63AD70085640}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiAgro.Tests", "ApiAgro.Tests\ApiAgro.Tests.csproj", "{B5A10A84-720A-4CC7-B95E-7B40FC6A4D69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DE3C9C4-63C2-CA19-335F-63AD70085640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE3C9C4-63C2-CA19-335F-63AD70085640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE3C9C4-63C2-CA19-335F-63AD70085640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE3C9C4-63C2-CA19-335F-63AD70085640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5A10A84-720A-4CC7-B95E-7B40FC6A4D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A10A84-720A-4CC7-B95E-7B40FC6A4D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A10A84-720A-4CC7-B95E-7B40FC6A4D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A10A84-720A-4CC7-B95E-7B40FC6A4D69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2670DEC2-29F0-4917-BB38-A02A390E17BE}
+	EndGlobalSection
+EndGlobal

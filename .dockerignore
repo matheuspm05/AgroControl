@@ -1,0 +1,65 @@
+# Git / metadata
+.git/
+.gitignore
+.dockerignore
+.codex/
+.agents/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+**/appsettings.Local.json
+**/appsettings.*.Local.json
+**/secrets.json
+*.pfx
+*.p12
+*.key
+*.pem
+
+# .NET outputs
+**/bin/
+**/obj/
+**/[Dd]ebug/
+**/[Rr]elease/
+**/TestResults/
+*.nupkg
+*.snupkg
+
+# Frontend outputs/dependencies
+**/node_modules/
+**/dist/
+**/build/
+**/.vite/
+**/.parcel-cache/
+**/.next/
+**/coverage/
+*.tsbuildinfo
+.eslintcache
+
+# IDE / OS / logs
+.vs/
+.idea/
+.vscode/
+*.user
+*.rsuser
+*.suo
+*.log
+*.tmp
+.cache/
+.DS_Store
+Thumbs.db
+
+# Local databases / backups
+*.db
+*.db-shm
+*.db-wal
+*.dump
+*.sql
+*.backup
+
+# Keep backend Docker builds focused on the API.
+frontend/
+docs/
+backend/ApiAgro.Tests/

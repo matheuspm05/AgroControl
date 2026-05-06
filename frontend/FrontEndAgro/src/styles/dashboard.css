@@ -1,0 +1,120 @@
+.sidebar-nav {
+  scrollbar-width: none;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.header-info-card,
+.dashboard-summary-card,
+.dashboard-panel,
+.dashboard-list-item {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 98%, transparent), var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-border) 78%, transparent);
+  box-shadow: 0 20px 60px -42px rgba(15, 23, 42, 0.42);
+  color: var(--color-text);
+}
+
+.header-info-card {
+  box-shadow: 0 14px 42px -34px rgba(15, 23, 42, 0.35);
+}
+
+.dashboard-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dashboard-summary-card:hover,
+.dashboard-panel:hover,
+.dashboard-list-item:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-border));
+  box-shadow: 0 26px 70px -44px rgba(15, 23, 42, 0.5);
+}
+
+.dashboard-summary-icon,
+.dashboard-row-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.86), transparent 34%),
+    linear-gradient(145deg, #e8f5e8, #cfe8d1);
+}
+
+.dashboard-summary-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 999px;
+}
+
+.dashboard-row-icon {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.8rem;
+  background: var(--color-surface-muted);
+}
+
+.quick-panel {
+  background:
+    radial-gradient(circle at top right, rgba(87, 178, 121, 0.32), transparent 42%),
+    linear-gradient(145deg, #063d29, #052b1e 78%);
+  border: 1px solid rgba(187, 247, 208, 0.16);
+}
+
+.quick-action-link {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.quick-action-link:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(187, 247, 208, 0.24);
+  transform: translateX(2px);
+}
+
+.farm-card {
+  min-height: 0;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 96%, transparent), color-mix(in srgb, var(--color-surface-muted) 90%, transparent));
+  border-color: color-mix(in srgb, var(--color-border) 86%, transparent);
+  box-shadow: 0 22px 60px -46px rgba(15, 23, 42, 0.45);
+}
+
+.sidebar-active-link {
+  background:
+    radial-gradient(circle at right, rgba(31, 138, 87, 0.36), transparent 44%),
+    linear-gradient(135deg, #047857, #064e3b);
+  color: var(--color-primary-text);
+}
+
+html.dark .header-info-card,
+html.dark .dashboard-summary-card,
+html.dark .dashboard-panel,
+html.dark .dashboard-list-item {
+  background:
+    linear-gradient(180deg, rgba(19, 34, 27, 0.98), rgba(15, 28, 22, 0.96));
+  border-color: var(--color-border);
+}
+
+html.dark .calendar-popover {
+  background:
+    linear-gradient(180deg, rgba(19, 34, 27, 0.99), rgba(15, 28, 22, 0.98));
+  border-color: var(--color-border);
+}
+
+html.dark .dashboard-summary-icon {
+  background:
+    radial-gradient(circle at 35% 25%, rgba(110, 231, 183, 0.22), transparent 34%),
+    linear-gradient(145deg, rgba(27, 67, 45, 0.96), rgba(19, 50, 35, 0.96));
+}
+
+html.dark .farm-card {
+  background:
+    linear-gradient(180deg, rgba(20, 36, 29, 0.98), rgba(15, 29, 23, 0.96));
+}

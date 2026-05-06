@@ -1,0 +1,99 @@
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+!.env.example
+!.env.sample
+
+appsettings.Local.json
+appsettings.*.Local.json
+secrets.json
+
+# Certificados / chaves
+aspnetcore-dev-cert.crt
+*.pfx
+*.p12
+*.key
+*.pem
+
+# =========================
+# Codex
+# =========================
+.codex/
+
+# =========================
+# .NET / ASP.NET
+# =========================
+.vs/
+**/bin/
+**/obj/
+**/[Dd]ebug/
+**/[Rr]elease/
+TestResults/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+*.nupkg
+*.snupkg
+
+# =========================
+# Node / React / Vite
+# =========================
+**/node_modules/
+**/dist/
+**/build/
+.vite/
+.parcel-cache/
+.next/
+coverage/
+*.tsbuildinfo
+.eslintcache
+
+# =========================
+# IDE
+# =========================
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# =========================
+# Logs / cache
+# =========================
+*.log
+*.tmp
+.cache/
+
+# =========================
+# Docker local artifacts
+# =========================
+docker-compose.override.yml
+docker-compose.*.override.yml
+.docker/
+docker-data/
+*.tar
+
+# =========================
+# SQLite antigo
+# =========================
+*.db
+*.db-shm
+*.db-wal
+backend/ApiAgro/Data/*.db*
+backend/ApiAgro/*.db*
+
+# =========================
+# PostgreSQL dumps / backups
+# =========================
+*.dump
+*.sql
+*.backup
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db

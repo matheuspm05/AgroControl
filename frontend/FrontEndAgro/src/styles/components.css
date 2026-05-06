@@ -1,0 +1,207 @@
+.ag-surface {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: var(--shadow-card);
+}
+
+.ag-surface:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.ag-surface-muted {
+  background-color: var(--color-surface-muted);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.ag-field {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  min-width: 0;
+}
+
+.ag-field::placeholder {
+  color: color-mix(in srgb, var(--color-text-muted) 78%, transparent);
+}
+
+.ag-field:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-focus);
+}
+
+.ag-field:disabled {
+  background-color: var(--color-surface-muted);
+  color: color-mix(in srgb, var(--color-text-muted) 75%, transparent);
+}
+
+.ag-field[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.ag-field[type="number"]::-webkit-outer-spin-button,
+.ag-field[type="number"]::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.ag-button-primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.ag-button-primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.ag-button-secondary {
+  background-color: var(--color-secondary);
+  border-color: var(--color-border);
+  color: var(--color-secondary-text);
+}
+
+.ag-button-secondary:hover {
+  background-color: var(--color-secondary-hover);
+  border-color: var(--color-border-strong);
+}
+
+.ag-button-danger {
+  background-color: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+.ag-button-danger:hover {
+  background-color: color-mix(in srgb, var(--color-danger-bg) 78%, var(--color-danger));
+}
+
+.ag-button-warning {
+  background-color: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
+  color: var(--color-warning);
+}
+
+.ag-button-warning:hover {
+  background-color: color-mix(in srgb, var(--color-warning-bg) 82%, var(--color-warning));
+}
+
+.ag-link {
+  color: var(--color-primary);
+}
+
+.ag-link:hover {
+  color: var(--color-primary-hover);
+}
+.ag-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+}
+
+.ag-card-muted,
+.ag-info-pill {
+  background-color: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+}
+
+.ag-page-kicker {
+  background-color: var(--color-surface-muted);
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
+}
+
+.ag-action-secondary {
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-secondary-text);
+}
+
+.ag-action-secondary:hover {
+  background-color: var(--color-secondary-hover);
+  border-color: var(--color-border-strong);
+}
+
+.ag-danger-action {
+  background-color: var(--color-danger-bg);
+  border: 1px solid var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+.ag-danger-action:hover {
+  background-color: color-mix(in srgb, var(--color-danger-bg) 78%, var(--color-danger));
+}
+
+.ag-empty-state {
+  background-color: var(--color-surface-muted);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-card);
+  color: var(--color-text-muted);
+}
+
+.ag-table-shell {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ag-table-shell table {
+  min-width: 48rem;
+}
+
+.ag-table-shell th {
+  white-space: nowrap;
+}
+
+.ag-table-shell td {
+  vertical-align: top;
+}
+.ag-skeleton {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(236, 253, 245, 0.9),
+      rgba(220, 252, 231, 0.65),
+      rgba(236, 253, 245, 0.9)
+    );
+}
+html.dark .ag-skeleton {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(24, 44, 35, 0.92),
+      rgba(42, 78, 60, 0.78),
+      rgba(24, 44, 35, 0.92)
+    );
+}
+
+@media (max-width: 640px) {
+  .ag-page-kicker {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .ag-button-primary,
+  .ag-button-secondary,
+  .ag-button-danger,
+  .ag-button-warning,
+  .ag-action-secondary,
+  .ag-danger-action {
+    max-width: 100%;
+  }
+
+  .ag-info-pill {
+    overflow-wrap: anywhere;
+  }
+
+  .ag-empty-state {
+    padding-inline: 1rem;
+  }
+}

@@ -1,0 +1,43 @@
+.auth-back-link {
+  background-color: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
+  color: var(--color-text);
+}
+
+.auth-back-link:hover {
+  background-color: var(--color-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-primary-hover);
+}
+
+.auth-theme-toggle {
+  display: inline-flex;
+  min-height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  color: var(--color-text);
+  box-shadow: 0 18px 42px -32px rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(12px);
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.auth-theme-toggle:hover {
+  transform: translateY(-1px);
+  background-color: var(--color-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-primary-hover);
+}
+
+.auth-helper-note {
+  background-color: color-mix(in srgb, var(--color-surface-muted) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
+  color: var(--color-text-muted);
+}

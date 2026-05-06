@@ -1,0 +1,55 @@
+Estou criando um sistema web chamado **AgroControl**, focado na gestão de fazendas (animais, pastos, currais, remédios e funcionários).
+
+Quero gerar uma tela (UI/UX) seguindo um padrão já definido. Use exatamente esse estilo:
+
+🎨 ESTILO VISUAL:
+
+* Design moderno, limpo e profissional
+* Paleta verde e branco (tema agro)
+* Interface clara (sem dark mode por padrão)
+* Componentes com bordas suaves e sombra leve
+* Ícones simples e consistentes
+* Layout organizado e sem excesso de informação
+
+📐 LAYOUT PADRÃO:
+
+* Sidebar fixa à esquerda com:
+  Dashboard, Animais, Pastos, Currais, Remédios, Campeiros, Relatórios, Configurações
+* Topbar com:
+
+  * nome do usuário
+  * ícone de perfil
+* Conteúdo principal em cards/brancos
+
+🧱 PADRÃO DE TELAS:
+
+* Título claro no topo
+* Subtítulo explicando a função da tela
+* Botões principais em verde
+* Botões secundários neutros
+* Ações destrutivas em vermelho (excluir)
+* Tabelas simples e organizadas
+* Formulários bem espaçados
+
+🧠 COMPORTAMENTO:
+
+* Sistema direto, sem poluição visual
+* Foco em produtividade (uso real no campo)
+* Evitar excesso de informações desnecessárias
+
+📊 CONTEXTO DO SISTEMA:
+
+* Existe controle de animais com movimentação entre pastos e currais
+* Histórico de aplicações de remédio
+* Controle de funcionários (campeiros)
+* Relatórios com filtros e exportação PDF
+* Cada entidade possui tela de lista, cadastro, edição e detalhe
+
+🎯 AGORA GERE:
+[TIPO DA TELA AQUI — exemplo: "tela de cadastro de venda de animal" ou "tela de relatório financeiro"]
+
+Requisitos específicos:
+[DESCREVA AQUI SE PRECISAR ALGO EXTRA]
+
+Quero uma imagem realista de interface web (dashboard), não wireframe.
+
