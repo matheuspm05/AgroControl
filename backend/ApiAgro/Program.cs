@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var corsPolicyName = "DefaultCors";
 
-var connectionString = RequireConnectionString(builder.Configuration);
+var connectionString = RequireConnectionString(builder.Configuration, builder.Environment);
 var jwtKey = RequireConfiguration(builder.Configuration, "Jwt:Key", "Configure a variável de ambiente Jwt__Key.");
 var jwtIssuer = RequireConfiguration(builder.Configuration, "Jwt:Issuer", "Configure Jwt__Issuer.");
 var jwtAudience = RequireConfiguration(builder.Configuration, "Jwt:Audience", "Configure Jwt__Audience.");
@@ -151,17 +152,86 @@ app.MapControllers();
 
 app.Run();
 
-static string RequireConnectionString(IConfiguration configuration)
+static string RequireConnectionString(IConfiguration configuration, IWebHostEnvironment environment)
 {
     var value = configuration.GetConnectionString("DefaultConnection");
-    if (string.IsNullOrWhiteSpace(value))
+    if (!string.IsNullOrWhiteSpace(value))
+    {
+        return NormalizeConnectionString(value);
+    }
+
+    if (environment.IsProduction())
+    {
+        var databaseUrl = configuration["DATABASE_URL"];
+        if (!string.IsNullOrWhiteSpace(databaseUrl))
+        {
+            return NormalizeConnectionString(databaseUrl);
+        }
+    }
+
+    throw new InvalidOperationException(
+        environment.IsProduction()
+            ? "Banco de dados não configurado. Em produção, configure ConnectionStrings__DefaultConnection ou DATABASE_URL."
+            : "Banco de dados não configurado. Configure ConnectionStrings__DefaultConnection para o ambiente local."
+    );
+}
+
+static string NormalizeConnectionString(string value)
+{
+    if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
+        (uri.Scheme != "postgres" && uri.Scheme != "postgresql"))
+    {
+        return value;
+    }
+
+    var userInfoParts = uri.UserInfo.Split(':', 2);
+    if (userInfoParts.Length != 2 ||
+        string.IsNullOrWhiteSpace(userInfoParts[0]) ||
+        string.IsNullOrWhiteSpace(userInfoParts[1]))
     {
         throw new InvalidOperationException(
-            "ConnectionStrings:DefaultConnection não configurada. Configure a variável de ambiente ConnectionStrings__DefaultConnection."
+            "DATABASE_URL inválida. Use o formato postgresql://usuario:senha@host:5432/banco."
         );
     }
 
-    return value;
+    var database = uri.AbsolutePath.Trim('/');
+    if (string.IsNullOrWhiteSpace(database))
+    {
+        throw new InvalidOperationException(
+            "DATABASE_URL inválida. Informe o nome do banco na URL."
+        );
+    }
+
+    var builder = new NpgsqlConnectionStringBuilder
+    {
+        Host = uri.Host,
+        Port = uri.IsDefaultPort ? 5432 : uri.Port,
+        Database = Uri.UnescapeDataString(database),
+        Username = Uri.UnescapeDataString(userInfoParts[0]),
+        Password = Uri.UnescapeDataString(userInfoParts[1]),
+        SslMode = SslMode.Disable
+    };
+
+    if (!string.IsNullOrWhiteSpace(uri.Query))
+    {
+        var query = uri.Query.TrimStart('?')
+            .Split('&', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        foreach (var pair in query)
+        {
+            var parts = pair.Split('=', 2);
+            var key = Uri.UnescapeDataString(parts[0]);
+            var queryValue = parts.Length > 1 ? Uri.UnescapeDataString(parts[1]) : string.Empty;
+
+            if (key.Equals("sslmode", StringComparison.OrdinalIgnoreCase) &&
+                Enum.TryParse<SslMode>(queryValue, true, out var sslMode))
+            {
+                builder.SslMode = sslMode;
+            }
+        }
+    }
+
+    return builder.ConnectionString;
 }
 
 static string RequireConfiguration(IConfiguration configuration, string key, string helpText)
