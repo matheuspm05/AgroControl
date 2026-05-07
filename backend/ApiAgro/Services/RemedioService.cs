@@ -1,6 +1,7 @@
 using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -40,7 +41,7 @@ public class RemedioService
         {
             FazendaId = fazendaId,
             Nome = dto.Nome,
-            DataCadastro = dto.DataCadastro ?? DateTime.UtcNow,
+            DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? DateTime.UtcNow,
             Descricao = dto.Descricao,
             DosePadrao = dto.DosePadrao,
             Ativo = dto.Ativo
@@ -62,7 +63,7 @@ public class RemedioService
 
         item.FazendaId = fazendaId;
         item.Nome = dto.Nome;
-        item.DataCadastro = dto.DataCadastro ?? item.DataCadastro;
+        item.DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? item.DataCadastro;
         item.Descricao = dto.Descricao;
         item.DosePadrao = dto.DosePadrao;
         item.Ativo = dto.Ativo;

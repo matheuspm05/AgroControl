@@ -1,6 +1,7 @@
 using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -48,7 +49,7 @@ public class AplicacaoRemedioService
             AnimalId = dto.AnimalId,
             RemedioId = dto.RemedioId,
             DoseAplicada = dto.DoseAplicada,
-            DataAplicacao = dto.DataAplicacao,
+            DataAplicacao = DateTimeUtils.AsUtc(dto.DataAplicacao),
             Observacao = dto.Observacao,
             Ativo = dto.Ativo
         };
@@ -77,7 +78,7 @@ public class AplicacaoRemedioService
         item.AnimalId = dto.AnimalId;
         item.RemedioId = dto.RemedioId;
         item.DoseAplicada = dto.DoseAplicada;
-        item.DataAplicacao = dto.DataAplicacao;
+        item.DataAplicacao = DateTimeUtils.AsUtc(dto.DataAplicacao);
         item.Observacao = dto.Observacao;
         item.Ativo = dto.Ativo;
 

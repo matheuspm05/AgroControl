@@ -1,6 +1,7 @@
 using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -40,7 +41,7 @@ public class CampeiroService
         {
             FazendaId = fazendaId,
             Nome = dto.Nome,
-            DataAdmissao = dto.DataAdmissao,
+            DataAdmissao = DateTimeUtils.AsUtc(dto.DataAdmissao),
             Salario = dto.Salario,
             EstadoCivil = dto.EstadoCivil,
             Telefone = dto.Telefone,
@@ -64,7 +65,7 @@ public class CampeiroService
 
         item.FazendaId = fazendaId;
         item.Nome = dto.Nome;
-        item.DataAdmissao = dto.DataAdmissao;
+        item.DataAdmissao = DateTimeUtils.AsUtc(dto.DataAdmissao);
         item.Salario = dto.Salario;
         item.EstadoCivil = dto.EstadoCivil;
         item.Telefone = dto.Telefone;

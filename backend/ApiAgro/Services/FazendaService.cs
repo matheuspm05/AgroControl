@@ -1,6 +1,7 @@
 using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -62,7 +63,7 @@ public class FazendaService
             UsuarioId = usuarioId,
             Nome = dto.Nome,
             Localizacao = dto.Localizacao,
-            DataCriacao = dto.DataCriacao ?? DateTime.UtcNow,
+            DataCriacao = DateTimeUtils.AsUtc(dto.DataCriacao) ?? DateTime.UtcNow,
             TamanhoPropriedade = dto.TamanhoPropriedade,
             Descricao = dto.Descricao
         };
@@ -83,7 +84,7 @@ public class FazendaService
 
         item.Nome = dto.Nome;
         item.Localizacao = dto.Localizacao;
-        item.DataCriacao = dto.DataCriacao ?? item.DataCriacao;
+        item.DataCriacao = DateTimeUtils.AsUtc(dto.DataCriacao) ?? item.DataCriacao;
         item.TamanhoPropriedade = dto.TamanhoPropriedade;
         item.Descricao = dto.Descricao;
 

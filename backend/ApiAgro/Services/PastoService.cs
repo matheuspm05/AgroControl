@@ -2,6 +2,7 @@ using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
 using ApiAgro.Models.Enums;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -66,7 +67,7 @@ public class PastoService
             Nome = dto.Nome,
             Tamanho = dto.Tamanho,
             TipoVegetacao = dto.TipoVegetacao,
-            DataCadastro = dto.DataCadastro ?? DateTime.UtcNow
+            DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? DateTime.UtcNow
         };
 
         _context.Pastos.Add(item);
@@ -87,7 +88,7 @@ public class PastoService
         item.Nome = dto.Nome;
         item.Tamanho = dto.Tamanho;
         item.TipoVegetacao = dto.TipoVegetacao;
-        item.DataCadastro = dto.DataCadastro ?? item.DataCadastro;
+        item.DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? item.DataCadastro;
 
         await _context.SaveChangesAsync();
         return ServiceResult.Ok();

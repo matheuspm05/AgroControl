@@ -2,6 +2,7 @@ using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
 using ApiAgro.Models.Enums;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -52,7 +53,7 @@ public class MovimentacaoAnimalService
             OrigemLocalId = dto.OrigemLocalId,
             DestinoTipoLocal = dto.DestinoTipoLocal,
             DestinoLocalId = dto.DestinoLocalId,
-            DataMovimentacao = dto.DataMovimentacao,
+            DataMovimentacao = DateTimeUtils.AsUtc(dto.DataMovimentacao),
             Observacao = dto.Observacao
         };
 
@@ -89,7 +90,7 @@ public class MovimentacaoAnimalService
         item.OrigemLocalId = dto.OrigemLocalId;
         item.DestinoTipoLocal = dto.DestinoTipoLocal;
         item.DestinoLocalId = dto.DestinoLocalId;
-        item.DataMovimentacao = dto.DataMovimentacao;
+        item.DataMovimentacao = DateTimeUtils.AsUtc(dto.DataMovimentacao);
         item.Observacao = dto.Observacao;
 
         await _context.SaveChangesAsync();

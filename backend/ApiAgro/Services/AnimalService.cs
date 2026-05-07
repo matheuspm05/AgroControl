@@ -2,6 +2,7 @@ using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
 using ApiAgro.Models.Enums;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -48,9 +49,9 @@ public class AnimalService
             FazendaId = fazendaId,
             Nome = dto.Nome,
             TipoAnimal = dto.TipoAnimal,
-            DataNascimento = dto.DataNascimento,
+            DataNascimento = DateTimeUtils.AsUtc(dto.DataNascimento),
             Peso = dto.Peso,
-            DataCadastro = dto.DataCadastro ?? DateTime.UtcNow,
+            DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? DateTime.UtcNow,
             TipoLocalAtual = dto.TipoLocalAtual,
             LocalAtualId = dto.LocalAtualId
         };
@@ -78,9 +79,9 @@ public class AnimalService
         item.FazendaId = fazendaId;
         item.Nome = dto.Nome;
         item.TipoAnimal = dto.TipoAnimal;
-        item.DataNascimento = dto.DataNascimento;
+        item.DataNascimento = DateTimeUtils.AsUtc(dto.DataNascimento);
         item.Peso = dto.Peso;
-        item.DataCadastro = dto.DataCadastro ?? item.DataCadastro;
+        item.DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? item.DataCadastro;
         item.TipoLocalAtual = dto.TipoLocalAtual;
         item.LocalAtualId = dto.LocalAtualId;
 

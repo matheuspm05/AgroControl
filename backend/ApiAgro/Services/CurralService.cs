@@ -2,6 +2,7 @@ using ApiAgro.Data;
 using ApiAgro.DTOs;
 using ApiAgro.Models;
 using ApiAgro.Models.Enums;
+using ApiAgro.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiAgro.Services;
@@ -65,7 +66,7 @@ public class CurralService
             FazendaId = fazendaId,
             Nome = dto.Nome,
             CapacidadeMaxima = dto.CapacidadeMaxima,
-            DataCadastro = dto.DataCadastro ?? DateTime.UtcNow
+            DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? DateTime.UtcNow
         };
 
         _context.Currais.Add(item);
@@ -85,7 +86,7 @@ public class CurralService
         item.FazendaId = fazendaId;
         item.Nome = dto.Nome;
         item.CapacidadeMaxima = dto.CapacidadeMaxima;
-        item.DataCadastro = dto.DataCadastro ?? item.DataCadastro;
+        item.DataCadastro = DateTimeUtils.AsUtc(dto.DataCadastro) ?? item.DataCadastro;
 
         await _context.SaveChangesAsync();
         return ServiceResult.Ok();
