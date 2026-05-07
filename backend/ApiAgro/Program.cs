@@ -3,6 +3,7 @@ using ApiAgro.Services;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -18,11 +19,16 @@ var jwtIssuer = RequireConfiguration(builder.Configuration, "Jwt:Issuer", "Confi
 var jwtAudience = RequireConfiguration(builder.Configuration, "Jwt:Audience", "Configure Jwt__Audience.");
 ValidateJwtKey(jwtKey);
 
-var allowedOrigins = builder.Configuration
-    .GetSection("Cors:AllowedOrigins")
-    .Get<string[]>() ?? [];
+var allowedOrigins = GetAllowedOrigins(builder.Configuration);
 ValidateCorsConfiguration(builder.Environment, allowedOrigins);
 ValidateRefreshTokenConfiguration(builder.Environment, builder.Configuration);
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -124,6 +130,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseForwardedHeaders();
+
 if (app.Configuration.GetValue<bool>("Database:ApplyMigrationsOnStartup"))
 {
     using var scope = app.Services.CreateScope();
@@ -147,6 +155,13 @@ app.UseCors(corsPolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/health", () => Results.Ok(new
+{
+    status = "ok",
+    environment = app.Environment.EnvironmentName,
+    timestamp = DateTime.UtcNow
+})).AllowAnonymous();
 
 app.MapControllers();
 
@@ -232,6 +247,35 @@ static string NormalizeConnectionString(string value)
     }
 
     return builder.ConnectionString;
+}
+
+static string[] GetAllowedOrigins(IConfiguration configuration)
+{
+    var origins = configuration
+        .GetSection("Cors:AllowedOrigins")
+        .Get<string[]>() ?? [];
+
+    if (origins.Length > 0)
+    {
+        return origins
+            .Select(x => x.Trim().TrimEnd('/'))
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+    }
+
+    var singleValue = configuration["Cors:AllowedOrigins"];
+    if (string.IsNullOrWhiteSpace(singleValue))
+    {
+        return [];
+    }
+
+    return singleValue
+        .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+        .Select(x => x.TrimEnd('/'))
+        .Where(x => !string.IsNullOrWhiteSpace(x))
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .ToArray();
 }
 
 static string RequireConfiguration(IConfiguration configuration, string key, string helpText)

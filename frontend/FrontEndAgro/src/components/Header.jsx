@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getUserProfile } from "../utils/userProfile";
 
+const SHOW_ENVIRONMENT_CARD = !import.meta.env.PROD;
+
 function Header({ title, description, onOpenSidebar }) {
   const profile = getUserProfile();
   const calendarRef = useRef(null);
@@ -82,12 +84,14 @@ function Header({ title, description, onOpenSidebar }) {
         </div>
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <HeaderInfoCard
-            className="hidden xl:flex"
-            eyebrow="Ambiente"
-            value="API local conectada"
-            icon={<StatusDotIcon />}
-          />
+          {SHOW_ENVIRONMENT_CARD ? (
+            <HeaderInfoCard
+              className="hidden xl:flex"
+              eyebrow="Ambiente"
+              value="API local conectada"
+              icon={<StatusDotIcon />}
+            />
+          ) : null}
 
           <div ref={calendarRef} className="relative hidden md:block">
             <button

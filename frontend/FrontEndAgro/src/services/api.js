@@ -1,12 +1,17 @@
 import axios from "axios";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5001/api";
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+const isProductionBuild = import.meta.env.PROD;
+const isApiBaseUrlMissing = isProductionBuild && !configuredApiBaseUrl;
+const API_BASE_URL = normalizeApiBaseUrl(
+  configuredApiBaseUrl || "http://localhost:5001/api",
+);
 const AUTH_BASE_URL = API_BASE_URL.replace(/\/api\/?$/, "");
 const AUTH_TOKEN_STORAGE_KEY = "agrocontrol.authToken";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 60000,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -40,6 +45,14 @@ export function clearAuthToken() {
 }
 
 api.interceptors.request.use((config) => {
+  if (isApiBaseUrlMissing) {
+    return Promise.reject(
+      new Error(
+        "VITE_API_BASE_URL não está configurada no deploy da Vercel. Configure a URL pública do backend Render, por exemplo: https://sua-api.onrender.com/api.",
+      ),
+    );
+  }
+
   const token = getAuthToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -191,6 +204,15 @@ export const agroApi = {
     };
   },
 };
+
+function normalizeApiBaseUrl(value) {
+  const trimmedValue = value.trim().replace(/\/+$/, "");
+  if (/\/api$/i.test(trimmedValue)) {
+    return trimmedValue;
+  }
+
+  return `${trimmedValue}/api`;
+}
 
 export { API_BASE_URL };
 export default api;
